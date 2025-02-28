@@ -1,0 +1,5 @@
+nltk
+google-auth
+google-api-python-client
+scikit-learn
+numpy
