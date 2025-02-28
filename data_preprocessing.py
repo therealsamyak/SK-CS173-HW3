@@ -1,4 +1,4 @@
-# This is the same file as HW2, just modified to filter out {Joy, Sadness}
+# This is almost the same file as HW2, just modified to filter out {Joy, Sadness}
 
 import csv
 import re
@@ -22,7 +22,7 @@ SERVICE_ACCOUNT_FILE = "credentials.json"
 SPREADSHEET_ID = "19Dg3yKvUR3XCyiAsfV9UeSU_7SRgylXwS6GQSwU0AN4"
 
 SHEET_NAMES = ["Sheet1"]
-OUTPUT_PATH = "cs173-hw2-processed.csv"
+OUTPUT_PATH = "cs173-hw3-processed.csv"
 
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 credentials = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
@@ -63,13 +63,14 @@ def process_spreadsheet():
                 trim_text = clean_text(cell)
                 if len(trim_text) > 0:
                     for emotion in emotions[col_j]:
-                        processed_rows.append([row_i, emotion, trim_text])
+                        if emotion in ["Joy", "Sadness"]:
+                            processed_rows.append([row_i, emotion, trim_text])
 
     with open(OUTPUT_PATH, "w", newline="", encoding="utf-8") as f:
         # Output Format
         # Row #, Emotion (Class), Paragraph
 
-        writer = csv.writer(f)
+        writer = csv.writer(f, quoting=csv.QUOTE_MINIMAL)
         writer.writerows(processed_rows)
 
 
