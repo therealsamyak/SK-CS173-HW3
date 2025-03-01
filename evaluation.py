@@ -58,7 +58,8 @@ def compute_metrics(
 if __name__ == "__main__":
     train_data, val_data, test_data = read_and_process_file()
 
-    learning_rate: float = best_lr_finder()[0]
+    learning_rate: float = best_lr_finder(train_data, val_data)[0]
+    print(learning_rate)
 
     w, b = sgd(train_data, learning_rate=learning_rate)
 
