@@ -19,14 +19,14 @@ def compute_confusion_matrix(
 
 def print_confusion_matrix(conf_matrix):
     labels = ["Sadness", "Joy"]
-    print("\n                ", end="")
+    print("\n          ", end="")
     for label in labels:
-        print(f"{label}", end=" ")
+        print(f"{label:<10}", end=" ")
     print()
 
     for i, row in enumerate(conf_matrix):
-        print(f"{labels[i]}", end="")
-        print(" ".join(f"{x:10}" for x in row))
+        print(f"{labels[i]:<8}", end="")
+        print(" ".join(f"{x:7}" for x in row))
 
 
 def compute_metrics(
