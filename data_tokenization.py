@@ -10,6 +10,15 @@ nltk.download("porter_test")
 stemmer = PorterStemmer()
 
 
+class DataPoint:
+    def __init__(self, features, label):
+        self.features = features
+        self.label = label
+
+    def __repr__(self):
+        return f"Features={self.features}, Label={self.label})"
+
+
 def load_nrc_lexicon(filepath):
     emotion_lexicon = defaultdict(set)
     with open(filepath, "r", encoding="utf-8") as file:
@@ -25,27 +34,25 @@ def extract_features(text, emotion_lexicon):
     tokens = nltk.word_tokenize(text)
     stemmed_tokens = [stemmer.stem(token) for token in tokens]
 
-    # x1
-    joy_count = sum(1 for token in stemmed_tokens if token in emotion_lexicon["joy"])
+    features = [
+        # x1
+        sum(1 for token in stemmed_tokens if token in emotion_lexicon["joy"]),
+        # x2
+        sum(1 for token in stemmed_tokens if token in emotion_lexicon["sadness"]),
+        # x3
+        len(stemmed_tokens),
+    ]
 
-    # x2
-    sadness_count = sum(
-        1 for token in stemmed_tokens if token in emotion_lexicon["sadness"]
-    )
-
-    # x3
-    total_tokens = len(stemmed_tokens)
-
-    return [joy_count, sadness_count, total_tokens]
+    return features
 
 
 def split_data(data):
     train_end = 30
     val_end = train_end + 9
 
-    train_data = [row[1:] for row in data if int(row[0]) <= train_end]
-    val_data = [row[1:] for row in data if train_end < int(row[0]) <= val_end]
-    test_data = [row[1:] for row in data if int(row[0]) > val_end]
+    train_data = [data_pt for i, data_pt in enumerate(data) if i < train_end]
+    val_data = [data_pt for i, data_pt in enumerate(data) if train_end <= i < val_end]
+    test_data = [data_pt for i, data_pt in enumerate(data) if i >= val_end]
 
     return train_data, val_data, test_data
 
@@ -61,7 +68,7 @@ def read_and_process_file(nrc_filepath):
         for row in reader:
             row_num, emotion, text = row
             features = extract_features(text, emotion_lexicon)
-            data.append([row_num, emotion] + features)
+            data.append(DataPoint(features, emotion))
 
     return split_data(data)
 
