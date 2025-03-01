@@ -64,6 +64,7 @@ def process_spreadsheet():
                 trim_text = clean_text(cell)
                 if len(trim_text) > 0:
                     for emotion in emotions[col_j]:
+                        # HW3 specific filtering
                         if emotion in ["Joy", "Sadness"]:
                             processed_rows.append([row_i, emotion, trim_text])
 
