@@ -21,6 +21,8 @@ def sgd(train_data: list[DataPoint], learning_rate: float, epochs: int = 100):
 
 
 def best_lr_finder(
+    train_data: list[DataPoint],
+    val_data: list[DataPoint],
     learning_rates: list[float] = [
         0.00001,
         0.00005,
@@ -32,13 +34,12 @@ def best_lr_finder(
         0.05,
         0.1,
         0.5,
-    ]
+    ],
 ):
     best_lr = None
     lowest_val_loss = float("inf")
     results = {}
 
-    train_data, val_data, _ = read_and_process_file()
     for lr in learning_rates:
         w, b = sgd(train_data, lr)
         val_loss = np.mean(
@@ -54,7 +55,9 @@ def best_lr_finder(
 
 
 if __name__ == "__main__":
-    best_lr, lowest_val_loss, results = best_lr_finder()
+
+    train_data, val_data, _ = read_and_process_file()
+    best_lr, lowest_val_loss, results = best_lr_finder(train_data, val_data)
 
     print()
     print(f"Best Learning Rate: {best_lr}")
