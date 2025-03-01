@@ -16,7 +16,7 @@ class DataPoint:
         self.label = label
 
     def __repr__(self):
-        return f"Features={self.features}, Label={self.label})"
+        return f"Features={self.features}, Label={self.label}"
 
 
 def load_nrc_lexicon(filepath):
