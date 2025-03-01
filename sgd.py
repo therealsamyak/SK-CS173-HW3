@@ -4,7 +4,7 @@ from logistic_regression import binary_cross_entropy_loss, classifier
 
 
 def sgd(train_data: list[DataPoint], learning_rate: float, epochs: int = 100):
-    w = np.zeros(3)
+    w = np.zeros(len(train_data[0]))
     b = 0
 
     for _ in range(epochs):
