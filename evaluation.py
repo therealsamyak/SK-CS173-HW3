@@ -65,6 +65,7 @@ if __name__ == "__main__":
     conf_matrix = compute_confusion_matrix(test_data, w, b)
     accuracy, precision, recall, f1_score = compute_metrics(conf_matrix, True)
 
+    print()
     print("Confusion Matrix:")
     print_confusion_matrix(conf_matrix)
     print()
