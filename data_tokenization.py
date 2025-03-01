@@ -57,7 +57,8 @@ def split_data(data):
     return train_data, val_data, test_data
 
 
-def read_and_process_file(nrc_filepath):
+def read_and_process_file():
+    nrc_filepath = "data/NRC-emotion-lexicon-wordlevel-alphabetized-v0.92.txt"
     emotion_lexicon = load_nrc_lexicon(nrc_filepath)
     data = []
 
@@ -74,8 +75,7 @@ def read_and_process_file(nrc_filepath):
 
 
 if __name__ == "__main__":
-    nrc_filepath = "data/NRC-emotion-lexicon-wordlevel-alphabetized-v0.92.txt"
-    train_data, val_data, test_data = read_and_process_file(nrc_filepath)
+    train_data, val_data, test_data = read_and_process_file()
 
     for i in range(10):
         print(train_data[i])
