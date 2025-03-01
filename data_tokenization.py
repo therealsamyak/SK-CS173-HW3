@@ -11,12 +11,13 @@ stemmer = PorterStemmer()
 
 
 class DataPoint:
-    def __init__(self, features: list[float], label: str):
+    def __init__(self, features: list[float], label: str, row_num: int):
         self.features = features
         self.label = label
+        self.row_num = row_num
 
     def __repr__(self):
-        return f"Features={self.features}, Label={self.label}"
+        return f"Row={self.row_num}, Label={self.label}, Features={self.features}"
 
 
 def load_nrc_lexicon(filepath: str) -> dict[str, set[str]]:
@@ -52,9 +53,9 @@ def split_data(
     train_end = 30
     val_end = train_end + 9
 
-    train_data = [data_pt for i, data_pt in enumerate(data) if i < train_end]
-    val_data = [data_pt for i, data_pt in enumerate(data) if train_end <= i < val_end]
-    test_data = [data_pt for i, data_pt in enumerate(data) if i >= val_end]
+    train_data = [data_pt for data_pt in data if data_pt.row_num < train_end]
+    val_data = [data_pt for data_pt in data if train_end <= data_pt.row_num < val_end]
+    test_data = [data_pt for data_pt in data if data_pt.row_num >= val_end]
 
     return train_data, val_data, test_data
 
@@ -71,7 +72,7 @@ def read_and_process_file() -> tuple[list[DataPoint], list[DataPoint], list[Data
         for row in reader:
             row_num, emotion, text = row
             features = extract_features(text, emotion_lexicon)
-            data.append(DataPoint(features, emotion))
+            data.append(DataPoint(features, emotion, int(row_num)))
 
     return split_data(data)
 
