@@ -21,11 +21,11 @@ def print_confusion_matrix(conf_matrix):
     labels = ["Sadness", "Joy"]
     print("\n                ", end="")
     for label in labels:
-        print(f"{label:<10}", end=" ")
+        print(f"{label}", end=" ")
     print()
 
     for i, row in enumerate(conf_matrix):
-        print(f"{labels[i]:<10}", end="")
+        print(f"{labels[i]}", end="")
         print(" ".join(f"{x:10}" for x in row))
 
 
