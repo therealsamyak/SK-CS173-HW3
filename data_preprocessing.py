@@ -18,6 +18,7 @@ from googleapiclient.discovery import build
 
 SERVICE_ACCOUNT_FILE = "credentials.json"
 
+# Unchanged from HW2
 # https://docs.google.com/spreadsheets/d/19Dg3yKvUR3XCyiAsfV9UeSU_7SRgylXwS6GQSwU0AN4/edit?gid=0#gid=0
 SPREADSHEET_ID = "19Dg3yKvUR3XCyiAsfV9UeSU_7SRgylXwS6GQSwU0AN4"
 
