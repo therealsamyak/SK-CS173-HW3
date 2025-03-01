@@ -58,8 +58,8 @@ if __name__ == "__main__":
 
     print()
     print(f"Best Learning Rate: {best_lr}")
-    print(f"Lowest Validation Loss: {lowest_val_loss}")
+    print(f"Lowest Validation Loss: {lowest_val_loss:.4f}")
     print()
     print("Validation Loss for Each Learning Rate:")
     for lr, loss in results.items():
-        print(f"Learning Rate: {lr}, Loss: {loss}")
+        print(f"Learning Rate: {lr}, Loss: {loss:.4f}")
