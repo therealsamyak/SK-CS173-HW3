@@ -30,12 +30,12 @@ credentials = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes
 service = build("sheets", "v4", credentials=credentials)
 
 
-def clean_text(string: str):
+def clean_text(string: str) -> str:
     string = re.sub(r"\s+", " ", string)
     return string.strip()
 
 
-def extract_emotions(headers: list[str]):
+def extract_emotions(headers: list[str]) -> dict[int, list[str]]:
     emotions = {}
 
     for i, header in enumerate(headers):
