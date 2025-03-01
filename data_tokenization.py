@@ -11,7 +11,7 @@ stemmer = PorterStemmer()
 
 
 class DataPoint:
-    def __init__(self, features, label):
+    def __init__(self, features: list[float], label: str):
         self.features = features
         self.label = label
 
@@ -19,7 +19,7 @@ class DataPoint:
         return f"Features={self.features}, Label={self.label}"
 
 
-def load_nrc_lexicon(filepath):
+def load_nrc_lexicon(filepath: str) -> dict[str, set[str]]:
     emotion_lexicon = defaultdict(set)
     with open(filepath, "r", encoding="utf-8") as file:
         for line in file:
@@ -30,7 +30,7 @@ def load_nrc_lexicon(filepath):
     return emotion_lexicon
 
 
-def extract_features(text, emotion_lexicon):
+def extract_features(text: str, emotion_lexicon: dict[str, set[str]]) -> list[float]:
     tokens = nltk.word_tokenize(text)
     stemmed_tokens = [stemmer.stem(token) for token in tokens]
 
@@ -46,7 +46,9 @@ def extract_features(text, emotion_lexicon):
     return features
 
 
-def split_data(data):
+def split_data(
+    data: list[DataPoint],
+) -> tuple[list[DataPoint], list[DataPoint], list[DataPoint]]:
     train_end = 30
     val_end = train_end + 9
 
@@ -57,7 +59,7 @@ def split_data(data):
     return train_data, val_data, test_data
 
 
-def read_and_process_file():
+def read_and_process_file() -> tuple[list[DataPoint], list[DataPoint], list[DataPoint]]:
     nrc_filepath = "data/NRC-emotion-lexicon-wordlevel-alphabetized-v0.92.txt"
     emotion_lexicon = load_nrc_lexicon(nrc_filepath)
     data = []
