@@ -11,7 +11,7 @@ def compute_confusion_matrix(
 
     for data_pt in test_data:
         y_true = data_pt.label
-        y_pred = int(classifier(data_pt, w, b) >= 0.5)
+        y_pred = 1 if classifier(data_pt, w, b) >= 0.5 else 0
         conf_matrix[y_pred][y_true] += 1
 
     return conf_matrix
