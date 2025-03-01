@@ -13,7 +13,7 @@ stemmer = PorterStemmer()
 class DataPoint:
     def __init__(self, features: list[float], label: str, row_num: int):
         self.features = features
-        self.label = label
+        self.label = 1 if label == "Joy" else 0
         self.row_num = row_num
 
     def __repr__(self):

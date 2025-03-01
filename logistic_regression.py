@@ -14,7 +14,7 @@ def classifier(
 
 
 def binary_cross_entropy_loss(data_point: DataPoint) -> float:
-    y_true = 1 if data_point.label == "Joy" else 0
+    y_true = data_point.label
     y_pred = classifier(data_point)
     return -(y_true * np.log(y_pred) + (1 - y_true) * np.log(1 - y_pred))
 
